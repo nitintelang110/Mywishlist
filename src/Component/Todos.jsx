@@ -10,10 +10,25 @@ const Todos = () => {
   const [newDescription, setNewDescription] = useState("");
   const [completedTodos, setCompletedTodos] = useState([]);
 
+
+
   const handleSubmit = () => {
+
+    let now = new Date();
+    let dd = now.getDate();
+    let mm = now.getMonth() + 1;
+    let yr = now.getFullYear();
+    let h = now.getHours();
+    let m = now.getMinutes();
+    let s = now.getSeconds();
+    let submitedOn = dd + '-' + mm + '-' + yr + ' ' + 'at' + ' ' + `${h>12?h-12:h}` + ':' + m + ':' + s +' '+`${h>12?"PM":"AM"}`;
+
+
+
     let newTodoItem = {
       title: newTitle,
-      description: newDescription
+      description: newDescription,
+      date:submitedOn
     }
     let updatedTodoArr = [...allTodos];
     updatedTodoArr.push(newTodoItem);
@@ -81,6 +96,7 @@ const Todos = () => {
      localStorage.setItem("completedTodo", JSON.stringify(updatedCompletedArr))
 }
 
+  
   return (
     <div className='m_container'>
 
@@ -119,7 +135,8 @@ const Todos = () => {
     <div className='todo-list-item' key={index}>
       <h3>
               {item.title}
-               <p>{item.description}</p>
+                  <p>{item.description}</p>
+                   <p style={{color:'pink'}}><small> {item.date}</small></p>
       </h3>
            
           <div className='icons'>
